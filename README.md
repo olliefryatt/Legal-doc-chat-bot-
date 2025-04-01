@@ -1,56 +1,40 @@
-# AI Document Chatbot
+# Legal Document Chat Bot
 
-A Flask-based chatbot that can analyze and answer questions about documents in the "Input files" folder.
+A chatbot that can answer questions about legal documents using OpenAI's GPT model.
 
 ## Setup Instructions
 
-1. Open Terminal
-2. Navigate to your project folder:
+1. Clone the repository
+2. Install the required packages:
    ```bash
-   cd /Users/oliverfryatt/Desktop/AI\ Bot
+   pip install -r requirements.txt
    ```
-3. Create and activate a virtual environment:
+3. Create a `.env` file in the root directory and add your OpenAI API key:
    ```bash
-   # Create virtual environment
-   python3 -m venv venv
-   
-   # Activate virtual environment
-   source venv/bin/activate
+   OPENAI_API_KEY=your_api_key_here
    ```
-4. Install required packages:
-   ```bash
-   pip install flask python-docx pandas openpyxl python-dotenv openai
-   ```
+   You can get an API key from [OpenAI's website](https://platform.openai.com/api-keys)
 
-## Running the Application
+4. Place your documents in the `Inputs files` directory
 
-1. Make sure your virtual environment is activated
-2. Run the application:
+5. Run the application:
    ```bash
    python app.py
    ```
-3. Open your web browser and go to:
-   ```
-   http://localhost:8000
-   ```
 
-## Troubleshooting
+6. Open your browser and navigate to `http://localhost:8000`
 
-If you encounter a "ModuleNotFoundError: No module named 'flask'" error:
+## Features
 
-1. Make sure you're in the virtual environment (you should see `(venv)` at the start of your terminal prompt)
-2. If not, activate it:
-   ```bash
-   source venv/bin/activate
-   ```
-3. Install the required packages:
-   ```bash
-   pip install flask python-docx pandas openpyxl python-dotenv openai
-   ```
-4. Try running the application again:
-   ```bash
-   python app.py
-   ```
+- Upload and process Word documents
+- Ask questions about the documents
+- Get AI-powered responses based on document content
+- Modern, clean user interface
+- Pre-loaded suggested questions
+
+## Security Note
+
+The `.env` file containing your API key is not included in the repository for security reasons. Make sure to create your own `.env` file with your API key before running the application.
 
 ## Dependencies
 
