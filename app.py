@@ -10,10 +10,25 @@ import re
 # Load environment variables
 load_dotenv()
 
-# Initialize OpenAI client
-client = OpenAI(api_key=os.getenv('OPENAI_API_KEY'))
+# Debug logging
+print("Environment variables:")
+print("OPENAI_API_KEY exists:", bool(os.getenv('OPENAI_API_KEY')))
+print("FLASK_ENV:", os.getenv('FLASK_ENV'))
+print("PORT:", os.getenv('PORT'))
 
+# Initialize Flask app
 app = Flask(__name__)
+
+# Initialize OpenAI client with error handling
+try:
+    api_key = os.getenv('OPENAI_API_KEY')
+    if not api_key:
+        raise ValueError("OPENAI_API_KEY environment variable is not set")
+    client = OpenAI(api_key=api_key)
+    print("OpenAI client initialized successfully")
+except Exception as e:
+    print(f"Error initializing OpenAI client: {str(e)}")
+    raise
 
 # Global variable to store document contents
 documents = []
