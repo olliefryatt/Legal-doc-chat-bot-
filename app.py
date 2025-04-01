@@ -13,8 +13,10 @@ load_dotenv()
 # Debug logging
 print("Environment variables:")
 print("OPENAI_API_KEY exists:", bool(os.getenv('OPENAI_API_KEY')))
+print("OPENAI_API_KEY length:", len(os.getenv('OPENAI_API_KEY', '')))
 print("FLASK_ENV:", os.getenv('FLASK_ENV'))
 print("PORT:", os.getenv('PORT'))
+print("All environment variables:", dict(os.environ))
 
 # Initialize Flask app
 app = Flask(__name__)
@@ -23,11 +25,16 @@ app = Flask(__name__)
 try:
     api_key = os.getenv('OPENAI_API_KEY')
     if not api_key:
+        print("Error: OPENAI_API_KEY is empty or not set")
+        print("Current working directory:", os.getcwd())
+        print("Files in current directory:", os.listdir())
         raise ValueError("OPENAI_API_KEY environment variable is not set")
     client = OpenAI(api_key=api_key)
     print("OpenAI client initialized successfully")
 except Exception as e:
     print(f"Error initializing OpenAI client: {str(e)}")
+    print("Error type:", type(e).__name__)
+    print("Full error details:", e)
     raise
 
 # Global variable to store document contents

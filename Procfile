@@ -1,1 +1,1 @@
-web: FLASK_ENV=production PYTHONUNBUFFERED=1 gunicorn --bind 0.0.0.0:$PORT app:app 
+web: FLASK_ENV=production PYTHONUNBUFFERED=1 OPENAI_API_KEY=$OPENAI_API_KEY gunicorn --bind 0.0.0.0:$PORT app:app 
