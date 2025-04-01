@@ -7,7 +7,7 @@ from openai import OpenAI
 from datetime import datetime
 import re
 
-# Load environment variables
+# Load environment variables from .env file if it exists
 load_dotenv()
 
 # Debug logging
@@ -23,12 +23,27 @@ app = Flask(__name__)
 
 # Initialize OpenAI client with error handling
 try:
+    # Try to get API key from environment
     api_key = os.getenv('OPENAI_API_KEY')
+    
+    # If not found, try to read from .env file directly
+    if not api_key and os.path.exists('.env'):
+        with open('.env', 'r') as f:
+            for line in f:
+                if line.startswith('OPENAI_API_KEY='):
+                    api_key = line.strip().split('=')[1]
+                    break
+    
     if not api_key:
         print("Error: OPENAI_API_KEY is empty or not set")
         print("Current working directory:", os.getcwd())
         print("Files in current directory:", os.listdir())
+        if os.path.exists('.env'):
+            print(".env file contents:")
+            with open('.env', 'r') as f:
+                print(f.read())
         raise ValueError("OPENAI_API_KEY environment variable is not set")
+    
     client = OpenAI(api_key=api_key)
     print("OpenAI client initialized successfully")
 except Exception as e:
