@@ -77,4 +77,22 @@ Make sure you have your OpenAI API key set up in the `.env` file before running 
 
 - The chatbot processes all documents when the application starts
 - Large documents may take some time to process initially
-- Make sure you have sufficient memory available for processing large documents 
+- Make sure you have sufficient memory available for processing large documents
+
+## Troubleshooting
+
+If you encounter a "ModuleNotFoundError: No module named 'flask'" error:
+
+1. Make sure you're in the virtual environment (you should see `(venv)` at the start of your terminal prompt)
+2. If not, activate it:
+   ```bash
+   source venv/bin/activate
+   ```
+3. Install the required packages:
+   ```bash
+   pip install flask python-docx pandas openpyxl python-dotenv openai
+   ```
+4. Try running the application again:
+   ```bash
+   python app.py
+   ``` 
