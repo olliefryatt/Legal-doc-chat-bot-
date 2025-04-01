@@ -4,6 +4,8 @@ from docx import Document
 import pandas as pd
 from dotenv import load_dotenv
 from openai import OpenAI
+from datetime import datetime
+import re
 
 # Load environment variables
 load_dotenv()
@@ -52,7 +54,8 @@ def process_documents():
             documents.append({
                 'filename': filename,
                 'content': text,
-                'sections': []  # We'll populate this in a moment
+                'sections': [],  # We'll populate this in a moment
+                'timestamp': datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             })
             
             print("Successfully processed:", filename)
@@ -87,7 +90,7 @@ def process_documents():
     for doc in documents:
         print("-", doc['filename'], "(", len(doc['content']), "characters )")
 
-def find_relevant_context(query, full_context, max_chars=8000):
+def find_relevant_context(query, full_context, max_chars=14000):
     """Find the most relevant parts of the context for the query."""
     if not documents:
         return ""
@@ -182,25 +185,51 @@ def generate_answer(query):
         print("Query:", query)
         print("Context length:", len(relevant_context))
         
-        # Prepare the messages for the API
-        messages = [
-            {"role": "system", "content": """You are a helpful assistant that answers questions based on the provided documents. 
-            Follow these guidelines:
-            1. Be direct and concise
-            2. Only include information relevant to the question
-            3. Use bullet points for lists
-            4. Use bold for emphasis
-            5. If quoting, use blockquotes
-            6. If the answer is complex, provide a brief summary at the end
-            7. When discussing breaches or compliance issues, be explicit about the details and timing"""},
-            {"role": "user", "content": "Based on the following documents, please answer this question: {}\n\nRelevant context:\n{}".format(query, relevant_context)}
-        ]
+        # Prepare the system prompt
+        system_prompt = """You are a professional financial analyst and legal document expert. Your task is to analyze legal and financial documents and provide clear, accurate, and well-structured answers to questions about them.
+
+Key guidelines for your responses:
+1. Be comprehensive but concise
+2. Structure your response with clear sections using markdown formatting
+3. Use bullet points for lists
+4. Highlight key information in bold
+5. Include specific details from the documents
+6. If information is not available in the documents, clearly state that
+7. Maintain a professional tone
+8. Be precise with numbers and dates
+9. Use proper financial terminology
+10. If discussing covenants or compliance, clearly state the status
+
+Format your response using markdown:
+- Use **bold** for important points
+- Use bullet points for lists
+- Use > for important quotes
+- Use ### for section headers
+- Keep paragraphs short and focused
+- Use tables when presenting structured data
+
+Remember to:
+- Always base your answers on the provided documents
+- Be clear about what information is and isn't available
+- Structure complex information in an easy-to-read format
+- Use professional financial and legal terminology appropriately"""
+
+        # Prepare the user prompt
+        user_prompt = f"""Based on the following documents, please answer this question: {query}
+
+Relevant document sections:
+{relevant_context}
+
+Please provide a clear, well-structured answer using markdown formatting."""
 
         print("Sending request to OpenAI API...")
         # Call OpenAI API with increased temperature for more natural responses
         response = client.chat.completions.create(
             model="gpt-4-turbo-preview",
-            messages=messages,
+            messages=[
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": user_prompt}
+            ],
             temperature=0.7,  # Increased from 0.3 for more natural responses
             max_tokens=1000   # Reduced from 2000 to encourage conciseness
         )
@@ -234,4 +263,8 @@ def ask():
 if __name__ == '__main__':
     # Process documents when starting the application
     process_documents()
-    app.run(debug=True, port=8000) 
+    # Get port from environment variable (for Railway) or use default
+    port = int(os.getenv('PORT', 8000))
+    # Only enable debug mode if not in production
+    debug = os.getenv('FLASK_ENV') != 'production'
+    app.run(host='0.0.0.0', port=port, debug=debug) 
