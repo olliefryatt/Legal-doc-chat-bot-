@@ -1,1 +1,1 @@
-web: FLASK_ENV=production PYTHONUNBUFFERED=1 gunicorn --bind 0.0.0.0:$PORT app:app 
+web: gunicorn --workers=4 --bind=0.0.0.0:$PORT app:app 

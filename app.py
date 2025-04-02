@@ -139,6 +139,9 @@ Remember, your answers must be accurate and factual based ONLY on what is stated
         return jsonify({'error': str(e)}), 500
 
 if __name__ == '__main__':
-    port = int(os.getenv('PORT', 5002))
-    debug = os.getenv('FLASK_ENV') != 'production'
+    # Use Railway's PORT if provided, otherwise default to 5002
+    port = int(os.environ.get('PORT', 5002))
+    # Set debug to False in production
+    debug = os.environ.get('FLASK_ENV') != 'production'
+    print(f"Starting server on port {port} with debug={debug}")
     app.run(host='0.0.0.0', port=port, debug=debug) 
