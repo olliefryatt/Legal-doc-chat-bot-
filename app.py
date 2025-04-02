@@ -22,11 +22,30 @@ logger.info(f"Directory contents: {os.listdir('.')}")
 # Load environment variables from .env file
 load_dotenv()
 
+# Check all possible API key environment variable names
+possible_api_key_names = [
+    'OPENAI_API_KEY',
+    'openai_api_key',
+    'OPENAI_KEY',
+    'OPENAI_KEY_1',
+    'OPENAI_SECRET_KEY',
+    'OPEN_AI_KEY',
+]
+
+api_key = None
+for key_name in possible_api_key_names:
+    potential_key = os.environ.get(key_name)
+    if potential_key:
+        api_key = potential_key
+        logger.info(f"Found API key in environment variable: {key_name}")
+        break
+
 # Debug environment variables
 logger.info("Environment variables:")
-logger.info(f"OPENAI_API_KEY exists: {bool(os.environ.get('OPENAI_API_KEY'))}")
-if os.environ.get('OPENAI_API_KEY'):
-    logger.info(f"OPENAI_API_KEY length: {len(os.environ.get('OPENAI_API_KEY'))}")
+logger.info(f"All environment variables: {list(os.environ.keys())}")
+logger.info(f"API key found: {bool(api_key)}")
+if api_key:
+    logger.info(f"API key length: {len(api_key)}")
 logger.info(f"PORT: {os.environ.get('PORT')}")
 logger.info(f"FLASK_ENV: {os.environ.get('FLASK_ENV')}")
 
@@ -35,13 +54,12 @@ app = Flask(__name__)
 
 # Initialize OpenAI client with error handling
 try:
-    api_key = os.environ.get('OPENAI_API_KEY')
     if not api_key:
-        logger.error("OPENAI_API_KEY environment variable is not set")
-        raise ValueError("OPENAI_API_KEY environment variable is not set")
-    
-    openai.api_key = api_key
-    logger.info("OpenAI client initialized successfully")
+        logger.error("OpenAI API key not found in any environment variable")
+        # Don't raise here, let the app start anyway for troubleshooting
+    else:
+        openai.api_key = api_key
+        logger.info("OpenAI client initialized successfully")
 except Exception as e:
     logger.error(f"Error initializing OpenAI client: {str(e)}")
     # Don't raise here, let the app start anyway for troubleshooting
@@ -128,7 +146,67 @@ def health():
         "status": "ok",
         "python_version": sys.version,
         "documents_loaded": len(documents_data.get('documents', {})),
-        "openai_configured": bool(os.environ.get('OPENAI_API_KEY'))
+        "openai_configured": bool(api_key)
+    })
+
+@app.route('/diagnostics')
+def diagnostics():
+    # This endpoint provides detailed diagnostics without exposing sensitive data
+    env_vars = {}
+    for key in os.environ:
+        # Don't include the actual API keys, just indicate if they exist
+        if 'key' in key.lower() or 'secret' in key.lower() or 'password' in key.lower() or 'token' in key.lower():
+            env_vars[key] = f"[REDACTED] (length: {len(os.environ[key]) if os.environ[key] else 0})"
+        else:
+            env_vars[key] = os.environ[key]
+            
+    # Check if we can make a test request to OpenAI
+    openai_test = "Not tested"
+    if api_key:
+        try:
+            # Make a minimal test request
+            openai.Completion.create(
+                model="text-ada-001",
+                prompt="Hello",
+                max_tokens=5
+            )
+            openai_test = "Success - API connection working"
+        except Exception as e:
+            openai_test = f"Error: {str(e)}"
+    
+    # Check file permissions
+    file_permissions = {}
+    important_files = ["documents_data.json", "app.py", "templates/index.html"]
+    for filename in important_files:
+        try:
+            if os.path.exists(filename):
+                file_permissions[filename] = {
+                    "exists": True,
+                    "size": os.path.getsize(filename),
+                    "readable": os.access(filename, os.R_OK),
+                    "writable": os.access(filename, os.W_OK),
+                    "executable": os.access(filename, os.X_OK)
+                }
+            else:
+                file_permissions[filename] = {"exists": False}
+        except Exception as e:
+            file_permissions[filename] = {"error": str(e)}
+    
+    return jsonify({
+        "system_info": {
+            "python_version": sys.version,
+            "platform": sys.platform,
+            "cwd": os.getcwd(),
+        },
+        "environment_variables": env_vars,
+        "api_key_status": {
+            "found": bool(api_key),
+            "length": len(api_key) if api_key else 0,
+            "test_result": openai_test
+        },
+        "file_permissions": file_permissions,
+        "loaded_documents": list(documents_data.get('documents', {}).keys()),
+        "loaded_excel_data": list(documents_data.get('excel_data', {}).keys())
     })
 
 @app.route('/ask', methods=['POST'])
@@ -168,7 +246,7 @@ def ask():
         logger.info(f"Context preview (first 200 chars): {context[:200]}...")
         
         # If OpenAI is not properly configured, return a test response
-        if not os.environ.get('OPENAI_API_KEY'):
+        if not api_key:
             logger.warning("OpenAI API key not configured, returning test response")
             return jsonify({
                 'answer': 'This is a test response. The OpenAI API key is not configured.',
