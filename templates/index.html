@@ -3,305 +3,287 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document AI Chatbot</title>
+    <title>Maestro AI Assistant</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            background-color: #f5f5f5;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f8f9fa;
+            color: #333;
         }
-
         .container {
-            max-width: 800px;
-            margin: 2rem auto;
-            padding: 1rem;
-        }
-
-        .chat-container {
             background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
-
-        .chat-header {
-            background-color: #1dd096;
-            color: white;
-            padding: 1rem;
-            text-align: center;
+        h1 {
+            color: #36C187;
+            margin-top: 0;
         }
-
-        .chat-messages {
-            height: 400px;
+        p {
+            color: #555;
+            line-height: 1.5;
+        }
+        .chat-box {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #e1e4e8;
+            border-radius: 8px;
+            min-height: 350px;
+            max-height: 500px;
             overflow-y: auto;
-            padding: 1rem;
+            background-color: #fafafa;
         }
-
-        .message {
-            margin-bottom: 1rem;
-            padding: 0.5rem 1rem;
-            border-radius: 5px;
-            max-width: 80%;
-        }
-
-        .message-content {
-            white-space: pre-wrap;
-            line-height: 1.4;
-            margin: 0;
-            padding: 0;
-        }
-
-        .message ul, .message ol {
-            margin-left: 1.5rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .message h1, .message h2, .message h3, .message h4 {
-            margin-top: 1rem;
-            margin-bottom: 0.5rem;
-            color: #2c3e50;
-        }
-
-        .user-message {
-            background-color: #1B1D38;
-            color: white;
-            margin-left: auto;
-        }
-
-        .bot-message {
-            background-color: #e9ecef;
-            color: #212529;
-        }
-
-        .bot-message strong {
-            color: #1B1D38;
-        }
-
-        .input-container {
+        .input-box {
+            margin-top: 20px;
             display: flex;
-            padding: 1rem;
-            border-top: 1px solid #dee2e6;
+            gap: 12px;
         }
-
-        #query-input {
-            flex: 1;
-            padding: 0.5rem;
-            border: 1px solid #dee2e6;
-            border-radius: 5px;
-            margin-right: 0.5rem;
-            font-size: 1rem;
+        textarea {
+            flex-grow: 1;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            resize: vertical;
+            min-height: 60px;
+            font-family: inherit;
+            font-size: 15px;
         }
-
-        #send-button {
-            padding: 0.75rem 1.25rem;
-            background-color: #1dd096;
+        textarea:focus {
+            outline: none;
+            border-color: #36C187;
+            box-shadow: 0 0 0 2px rgba(54, 193, 135, 0.2);
+        }
+        button {
+            padding: 12px 24px;
+            background-color: #36C187;
             color: white;
             border: none;
-            border-radius: 8px;
+            border-radius: 6px;
             cursor: pointer;
-            font-size: 1rem;
-            font-weight: 600;
-            transition: all 0.2s ease;
+            font-weight: 500;
+            transition: background-color 0.2s;
+        }
+        button:hover {
+            background-color: #2ca873;
+        }
+        .message {
+            margin: 12px 0;
+            padding: 14px;
+            border-radius: 8px;
+            white-space: pre-wrap;
+        }
+        .user-message {
+            background-color: #e6f7ef;
+            margin-left: 20%;
+            border-bottom-right-radius: 4px;
+            font-weight: 500;
+        }
+        .assistant-message {
+            background-color: #ffffff;
+            margin-right: 20%;
+            border-left: 4px solid #36C187;
+            line-height: 1.6;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.07);
+        }
+        .test-questions {
+            margin: 20px 0;
             display: flex;
-            align-items: center;
-            justify-content: center;
-            min-width: 100px;
-            position: relative;
-            overflow: hidden;
+            flex-wrap: wrap;
+            gap: 10px;
         }
-
-        #send-button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(
-                120deg,
-                transparent,
-                rgba(255, 255, 255, 0.2),
-                transparent
-            );
-            transition: 0.5s;
-        }
-
-        #send-button:hover {
-            background-color: #1bbd85;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(29, 208, 150, 0.2);
-        }
-
-        #send-button:hover::before {
-            left: 100%;
-        }
-
-        #send-button:active {
-            transform: translateY(0);
-        }
-
-        .loading {
-            display: none;
-            text-align: center;
-            padding: 1rem;
-        }
-
-        .loading::after {
-            content: '';
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 2px solid #1dd096;
-            border-radius: 50%;
-            border-top-color: transparent;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            to {
-                transform: rotate(360deg);
-            }
-        }
-
-        .suggested-questions {
-            padding: 1rem;
-            background-color: #f8f9fa;
-            border-top: 1px solid #dee2e6;
-        }
-
-        .suggested-questions h3 {
-            margin: 0 0 0.75rem 0;
-            color: #495057;
-            font-size: 0.9rem;
-            font-weight: 600;
-        }
-
-        .question-prompt {
-            display: inline-block;
-            margin: 0.25rem;
-            padding: 0.5rem 1rem;
-            background-color: #e9ecef;
+        .test-btn {
+            padding: 10px 16px;
+            background-color: #f0f7f4;
+            color: #333;
+            border: 1px solid #d0e6dd;
             border-radius: 20px;
             cursor: pointer;
             font-size: 0.9rem;
-            color: #495057;
-            transition: all 0.2s ease;
-            border: 1px solid #dee2e6;
+            transition: all 0.2s;
         }
-
-        .question-prompt:hover {
-            background-color: #dee2e6;
-            transform: translateY(-1px);
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        .test-btn:hover {
+            background-color: #e6f7ef;
+            border-color: #36C187;
         }
-
-        .message-content blockquote {
+        
+        /* Styling for formatted content */
+        .citation {
+            font-weight: 600;
+            color: #36C187;
+        }
+        .document-quote {
+            border-left: 3px solid #36C187;
+            padding-left: 10px;
             margin: 10px 0;
-            padding: 10px;
-            background-color: #f8f9fa;
-            border-left: 4px solid #1dd096;
+            color: #555;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 15px 0;
+        }
+        table, th, td {
+            border: 1px solid #e1e4e8;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f0f7f4;
+        }
+        h2, h3, h4 {
+            margin-top: 15px;
+            margin-bottom: 10px;
+            color: #36C187;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="chat-container">
-            <div class="chat-header">
-                <h1>Document AI Chatbot</h1>
-            </div>
-            <div class="chat-messages" id="chat-messages">
-                <div class="message bot-message">
-                    <div class="message-content">Hello! I'm your Maestro AI assistant. You can ask me questions about the various documents related to this transaction. How can I help you?</div>
-                </div>
-            </div>
-            <div class="loading" id="loading">Thinking...</div>
-            <div class="input-container">
-                <input type="text" id="query-input" placeholder="Type your question here..." onkeypress="handleKeyPress(event)">
-                <button onclick="askQuestion()">Send</button>
-            </div>
-            <div class="suggested-questions">
-                <h3>Suggested Questions:</h3>
-                <div class="question-prompt" onclick="askQuestion('What is the facility amount, tenure and pricing?')">What is the facility amount, tenure and pricing?</div>
-                <div class="question-prompt" onclick="askQuestion('What are the covenants?')">What are the covenants?</div>
-                <div class="question-prompt" onclick="askQuestion('Has there been a breach of covenant?')">Has there been a breach of covenant?</div>
-                <div class="question-prompt" onclick="askQuestion('What markets does BB.Borrower operate in?')">What markets does BB.Borrower operate in?</div>
-            </div>
+        <h1>Maestro AI Assistant</h1>
+        
+        <div id="chat-box" class="chat-box"></div>
+        <div class="input-box">
+            <textarea id="question" placeholder="Type your question here..."></textarea>
+            <button onclick="askQuestion()">Send</button>
+        </div>
+        
+        <div class="test-questions">
+            <button class="test-btn" onclick="askPredefinedQuestion('What are the financial covenants in the loan agreement?')">Financial Covenants</button>
+            <button class="test-btn" onclick="askPredefinedQuestion('Has BB.Borrower breached any covenants in Q1 2024?')">Covenant Breach</button>
+            <button class="test-btn" onclick="askPredefinedQuestion('What markets does BB.Borrower operate in?')">Markets</button>
+            <button class="test-btn" onclick="askPredefinedQuestion('What is the leverage ratio as of Q1 2024?')">Leverage Ratio</button>
         </div>
     </div>
 
     <script>
-        const chatMessages = document.getElementById('chat-messages');
-        const queryInput = document.getElementById('query-input');
-        const sendButton = document.getElementById('send-button');
-        const loading = document.getElementById('loading');
-
-        function convertMarkdownToHTML(text) {
+        function formatResponse(text) {
+            // Convert newlines to HTML breaks
+            text = text.replace(/\n\n/g, '<br><br>');
+            text = text.replace(/\n/g, '<br>');
+            
+            // Enhance citations
+            text = text.replace(/(According to|Based on|From|In|As stated in|As mentioned in|As per) (the )?(Investment Memo|Common Terms Agreement|Quarterly Compliance Certificate[^,.:]*|Excel data)[,.:]/gi, 
+                 '<span class="citation">$1 $2$3:</span>');
+            
+            // Format headings
+            text = text.replace(/## (.*?)(<br>|$)/g, '<h2>$1</h2>');
+            text = text.replace(/### (.*?)(<br>|$)/g, '<h3>$1</h3>');
+            
+            // Bold formatting
             text = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-            text = text.split('\n').map(line => {
-                if (line.trim().startsWith('- ')) {
-                    return '<li>' + line.trim().substring(2) + '</li>';
-                }
-                return line;
-            }).join('\n');
-            text = text.replace(/<li>.*?<\/li>(\n<li>.*?<\/li>)*/g, match => {
-                return '<ul>' + match + '</ul>';
-            });
+            
+            // Italic formatting
+            text = text.replace(/\*(.*?)\*/g, '<em>$1</em>');
+            
+            // Format bullet points
+            text = text.replace(/<br>- /g, '<br>• ');
+            
+            // Format percentages and numbers 
+            text = text.replace(/(\d+\.\d+%|\d+%)/g, '<strong>$1</strong>');
+            text = text.replace(/(€\d+\.?\d*[mbkMBK]?)/g, '<strong>$1</strong>');
+            
+            // Format ratios
+            text = text.replace(/(\d+\.?\d*:\d+\.?\d*)/g, '<strong>$1</strong>');
+            
             return text;
         }
+        
+        function askPredefinedQuestion(question) {
+            document.getElementById('question').value = question;
+            askQuestion();
+        }
+        
+        function askQuestion() {
+            const questionInput = document.getElementById('question');
+            const chatBox = document.getElementById('chat-box');
+            const question = questionInput.value.trim();
+            
+            if (!question) return;
 
-        function addMessage(content, isUser = false) {
-            const messageDiv = document.createElement('div');
-            messageDiv.className = `message ${isUser ? 'user-message' : 'bot-message'}`;
+            // Add user message
+            const userDiv = document.createElement('div');
+            userDiv.className = 'message user-message';
+            userDiv.textContent = question;
+            chatBox.appendChild(userDiv);
+
+            // Clear input
+            questionInput.value = '';
             
-            if (isUser) {
-                messageDiv.textContent = content;
-            } else {
-                messageDiv.innerHTML = convertMarkdownToHTML(content);
-            }
+            // Add loading indicator
+            const loadingDiv = document.createElement('div');
+            loadingDiv.className = 'message assistant-message';
+            loadingDiv.textContent = 'Thinking...';
+            loadingDiv.id = 'loading-message';
+            chatBox.appendChild(loadingDiv);
             
-            chatMessages.appendChild(messageDiv);
-            chatMessages.scrollTop = chatMessages.scrollHeight;
+            // Scroll to bottom
+            chatBox.scrollTop = chatBox.scrollHeight;
+
+            // Send request to server
+            fetch('/ask', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ question: question })
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Remove loading indicator
+                const loadingElement = document.getElementById('loading-message');
+                if (loadingElement) {
+                    loadingElement.remove();
+                }
+                
+                // Add assistant message
+                const assistantDiv = document.createElement('div');
+                assistantDiv.className = 'message assistant-message';
+                assistantDiv.innerHTML = formatResponse(data.answer || data.error);
+                chatBox.appendChild(assistantDiv);
+                
+                // Scroll to bottom
+                chatBox.scrollTop = chatBox.scrollHeight;
+            })
+            .catch(error => {
+                // Remove loading indicator
+                const loadingElement = document.getElementById('loading-message');
+                if (loadingElement) {
+                    loadingElement.remove();
+                }
+                
+                console.error('Error:', error);
+                const errorDiv = document.createElement('div');
+                errorDiv.className = 'message assistant-message';
+                errorDiv.textContent = 'Error: Could not get response from server.';
+                chatBox.appendChild(errorDiv);
+                
+                // Scroll to bottom
+                chatBox.scrollTop = chatBox.scrollHeight;
+            });
         }
 
-        function handleKeyPress(event) {
-            if (event.key === 'Enter') {
+        // Add welcome message when page loads
+        window.onload = function() {
+            const chatBox = document.getElementById('chat-box');
+            const welcomeDiv = document.createElement('div');
+            welcomeDiv.className = 'message assistant-message';
+            welcomeDiv.innerHTML = "Hello! I'm your Maestro AI assistant. I can help you analyze BB.Borrower's documents on Maestro. Ask me questions and I'll try to provide you with answers from the sources.";
+            chatBox.appendChild(welcomeDiv);
+        };
+
+        // Allow sending message with Enter key
+        document.getElementById('question').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
                 askQuestion();
             }
-        }
-
-        async function askQuestion(questionText = null) {
-            const query = questionText || queryInput.value.trim();
-            if (!query) return;
-            
-            addMessage(query, true);
-            queryInput.value = '';
-            loading.style.display = 'block';
-
-            try {
-                const response = await fetch('/ask', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ query }),
-                });
-
-                const data = await response.json();
-                addMessage(data.answer);
-            } catch (error) {
-                addMessage('Sorry, there was an error processing your request. Please try again.');
-            } finally {
-                loading.style.display = 'none';
-            }
-        }
-
-        queryInput.addEventListener('keypress', handleKeyPress);
+        });
     </script>
 </body>
 </html> 

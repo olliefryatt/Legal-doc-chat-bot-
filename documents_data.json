@@ -1,0 +1,369 @@
+{
+  "documents": {
+    "Investment Memo": {
+      "type": "document",
+      "content": [
+        {
+          "type": "section",
+          "title": "Introduction",
+          "content": [
+            {
+              "type": "paragraph",
+              "text": "BB.Borrower is a leading solar pay-as-you-go (PAYGO) provider in Sub-Saharan Africa with a 10-year history. The business currently serves over 500,000 customers across five African countries and was one of the first solar PAYGO companies to enter the market in 2014. It focuses on offering affordable clean energy solutions to off-grid households and small businesses, with an average device cost of €350 financed over 24 months. BB.Borrower has a strong and growing customer base with excellent repayment rates compared to industry average."
+            },
+            {
+              "type": "paragraph",
+              "text": "The business is owned by a mix of management and two PE firms (Sponsor 1 and Sponsor 2). Under their ownership, the business has grown from operating in 1 country to 5 markets across Sub-Saharan Africa."
+            }
+          ]
+        },
+        {
+          "type": "section",
+          "title": "Market Overview",
+          "content": [
+            {
+              "type": "paragraph",
+              "text": "The Sub-Saharan African solar PAYGO market has witnessed consistent growth in recent years, growing at 20% from 2019 to 2022, despite disruptions from COVID. This is attributed to the strong value proposition offered by PAYGO solar providers, allowing millions of unbanked and off-grid customers to access clean energy and build credit history."
+            },
+            {
+              "type": "paragraph",
+              "text": "BB.Borrower primarily operates in Uganda, Tanzania, Kenya, Nigeria, and Senegal, targeting markets with relatively low energy access rates. Uganda is the largest market, accounting for 45% of the portfolio, followed by Tanzania (30%), Kenya (15%), and Nigeria (10%). Senegal is a new market entered in late 2023."
+            }
+          ]
+        },
+        {
+          "type": "section",
+          "title": "Financial Performance",
+          "content": [
+            {
+              "type": "paragraph",
+              "text": "BB.Borrower has delivered strong revenue and EBITDA growth, with a 21% revenue CAGR from 2019 to 2022, and a 28% EBITDA CAGR over the same period. This growth was driven by expansion into new markets and increasing penetration in existing territories."
+            },
+            {
+              "type": "financial_table",
+              "title": "Key Financials (€m)",
+              "years": ["2019", "2020", "2021", "2022", "2023F"],
+              "data": {
+                "Revenue": [58, 40, 65, 103, 120],
+                "EBITDA": [15, 5, 15, 32, 38],
+                "EBITDA Margin": ["26%", "13%", "23%", "31%", "32%"]
+              }
+            }
+          ]
+        },
+        {
+          "type": "section",
+          "title": "Management Team",
+          "content": [
+            {
+              "type": "management_member",
+              "name": "John Smith",
+              "position": "CEO",
+              "details": "20+ years of experience in the solar and microfinance industries, joined BB.Borrower in 2015"
+            },
+            {
+              "type": "management_member",
+              "name": "Sarah Johnson",
+              "position": "CFO",
+              "details": "15+ years of financial experience across fintech and energy sectors, joined in 2017"
+            }
+          ]
+        },
+        {
+          "type": "section",
+          "title": "Transaction Details",
+          "content": [
+            {
+              "type": "details",
+              "items": {
+                "Facility": "€150m Term Loan",
+                "Tenor": "5 years",
+                "Margin": "4.50% over EURIBOR",
+                "Arrangement Fee": "2.00%",
+                "Leverage": "3.5x LTM EBITDA"
+              }
+            }
+          ]
+        },
+        {
+          "type": "section",
+          "title": "Recommendation",
+          "content": [
+            {
+              "type": "paragraph",
+              "text": "The proposed €150m facility represents an attractive lending opportunity for the following reasons: (1) BB.Borrower's leading position in the growing solar PAYGO market; (2) Strong track record of revenue and EBITDA growth; (3) Experienced management team with a proven ability to execute the expansion strategy; (4) Conservative leverage at 3.5x EBITDA with strong cash flow generation and positive social impact."
+            }
+          ]
+        }
+      ]
+    },
+    "Common Terms Agreement": {
+      "type": "document",
+      "content": [
+        {
+          "type": "section",
+          "title": "Key Terms",
+          "content": [
+            {
+              "type": "paragraph",
+              "text": "The €150,000,000 Term Loan Facility Agreement dated 15 January 2023 between BB.Borrower GmbH as Borrower and Alpha Bank as Lender."
+            }
+          ]
+        },
+        {
+          "type": "section",
+          "title": "Financial Covenants",
+          "content": [
+            {
+              "type": "paragraph",
+              "text": "The Borrower shall ensure that:"
+            },
+            {
+              "type": "list",
+              "items": [
+                "Leverage Ratio: Net Debt to EBITDA shall not exceed 4.5:1",
+                "Portfolio PAR30: ≤ 20%",
+                "Loan to Value (LTV): ≤ 80%"
+              ]
+            },
+            {
+              "type": "paragraph",
+              "text": "Testing Date: The Financial Covenants shall be tested quarterly on the last day of each financial quarter, beginning on 31 March 2023."
+            }
+          ]
+        },
+        {
+          "type": "section",
+          "title": "Events of Default",
+          "content": [
+            {
+              "type": "paragraph",
+              "text": "Each of the events set out in this Section constitutes an Event of Default. These include, but are not limited to:"
+            },
+            {
+              "type": "list",
+              "items": [
+                "Non-payment of any amount due under the Finance Documents",
+                "Breach of Financial Covenants",
+                "Breach of other obligations under the Finance Documents",
+                "Misrepresentation",
+                "Cross default",
+                "Insolvency",
+                "Insolvency proceedings",
+                "Creditors' process",
+                "Cessation of business"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "section",
+          "title": "Reporting Requirements",
+          "content": [
+            {
+              "type": "paragraph",
+              "text": "The Borrower shall supply to the Lender:"
+            },
+            {
+              "type": "list",
+              "items": [
+                "Annual audited consolidated financial statements within 120 days after the end of each financial year",
+                "Quarterly unaudited consolidated financial statements within 60 days after the end of each financial quarter",
+                "Compliance Certificate with each set of financial statements, confirming compliance with the Financial Covenants",
+                "Annual budget within 30 days before the start of each financial year"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "Quarterly Compliance Certificate Q4 2023": {
+      "type": "document",
+      "content": [
+        {
+          "type": "signature_block",
+          "name": "Sarah Johnson",
+          "title": "Chief Financial Officer",
+          "company": "BB.Borrower GmbH",
+          "date": "15 February 2024"
+        },
+        {
+          "type": "paragraph",
+          "text": "In accordance with the Common Terms Agreement dated 15 January 2023, I hereby certify that as at 31 December 2023:"
+        },
+        {
+          "type": "compliance_table",
+          "title": "Financial Covenant Compliance",
+          "headers": ["Covenant", "Required", "Actual", "Compliance"],
+          "rows": [
+            {"Covenant": "Leverage Ratio", "Required": "≤ 4.5:1", "Actual": "3.6:1", "Compliance": "Yes"},
+            {"Covenant": "Portfolio PAR30", "Required": "≤ 20%", "Actual": "12.5%", "Compliance": "Yes"},
+            {"Covenant": "Loan to Value (LTV)", "Required": "≤ 80%", "Actual": "68.3%", "Compliance": "Yes"}
+          ]
+        },
+        {
+          "type": "section",
+          "title": "Financial Performance",
+          "content": [
+            {
+              "type": "paragraph",
+              "text": "For the quarter ended 31 December 2023:"
+            },
+            {
+              "type": "details",
+              "items": {
+                "Revenue": "€32.4m (up 9% year-on-year)",
+                "EBITDA": "€10.2m (up 12% year-on-year)",
+                "EBITDA margin": "31.5%",
+                "Net Debt": "€140.5m"
+              }
+            }
+          ]
+        },
+        {
+          "type": "section",
+          "title": "Operational Update",
+          "content": [
+            {
+              "type": "paragraph",
+              "text": "During Q4 2023, we expanded operations in Nigeria and launched our entry into Senegal, bringing our total markets to 5 countries. Customer base increased to 520,000 active users, representing 4% growth quarter-on-quarter. Our solar home systems have now provided clean energy access to over 2.5 million individuals across Sub-Saharan Africa."
+            },
+            {
+              "type": "paragraph",
+              "text": "All covenants have been met for the period, with sufficient headroom maintained."
+            }
+          ]
+        }
+      ]
+    },
+    "Quarterly Compliance Certificate Q1 2024": {
+      "type": "document",
+      "content": [
+        {
+          "type": "signature_block",
+          "name": "Sarah Johnson",
+          "title": "Chief Financial Officer",
+          "company": "BB.Borrower GmbH",
+          "date": "15 May 2024"
+        },
+        {
+          "type": "paragraph",
+          "text": "In accordance with the Common Terms Agreement dated 15 January 2023, I hereby certify that as at 31 March 2024:"
+        },
+        {
+          "type": "compliance_table",
+          "title": "Financial Covenant Compliance",
+          "headers": ["Covenant", "Required", "Actual", "Compliance"],
+          "rows": [
+            {"Covenant": "Leverage Ratio", "Required": "≤ 4.5:1", "Actual": "4.1:1", "Compliance": "Yes"},
+            {"Covenant": "Portfolio PAR30", "Required": "≤ 20%", "Actual": "22.3%", "Compliance": "No"},
+            {"Covenant": "Loan to Value (LTV)", "Required": "≤ 80%", "Actual": "78.5%", "Compliance": "Yes"}
+          ]
+        },
+        {
+          "type": "section",
+          "title": "Financial Performance",
+          "content": [
+            {
+              "type": "paragraph",
+              "text": "For the quarter ended 31 March 2024:"
+            },
+            {
+              "type": "details",
+              "items": {
+                "Revenue": "€28.6m (down 5% quarter-on-quarter)",
+                "EBITDA": "€8.1m (down 20% quarter-on-quarter)",
+                "EBITDA margin": "28.3%",
+                "Net Debt": "€145.2m"
+              }
+            }
+          ]
+        },
+        {
+          "type": "section",
+          "title": "Covenant Breach Explanation",
+          "content": [
+            {
+              "type": "paragraph",
+              "text": "We regret to inform you that we have breached the Portfolio PAR30 covenant for Q1 2024. This is primarily due to (1) seasonal effects in Uganda and Tanzania during the dry season affecting agricultural incomes, and (2) temporary payment disruptions in Kenya due to mobile money platform issues."
+            },
+            {
+              "type": "paragraph",
+              "text": "The management team has implemented a recovery plan to address this breach, including:"
+            },
+            {
+              "type": "list",
+              "items": [
+                "Enhanced collections processes with additional field agents",
+                "Temporary payment flexibility options for affected customers",
+                "Strengthened credit assessment for new customers",
+                "Focus on higher-performing regions in Uganda and Tanzania"
+              ]
+            },
+            {
+              "type": "paragraph",
+              "text": "We request a waiver for this covenant breach and are available to discuss our recovery plan in more detail. Early indicators from April show PAR30 improving to 19.8%, which would be back within covenant requirements."
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "excel_data": {
+    "BB.Borrower - Historic Performance": {
+      "data": {
+        "monthly_revenue": {
+          "Jan 2023": 9.2,
+          "Feb 2023": 9.5,
+          "Mar 2023": 9.8,
+          "Apr 2023": 10.2,
+          "May 2023": 10.1,
+          "Jun 2023": 10.0,
+          "Jul 2023": 9.7,
+          "Aug 2023": 9.5,
+          "Sep 2023": 10.5,
+          "Oct 2023": 10.8,
+          "Nov 2023": 10.9,
+          "Dec 2023": 10.7,
+          "Jan 2024": 10.3,
+          "Feb 2024": 9.8,
+          "Mar 2024": 8.5
+        },
+        "monthly_customers": {
+          "Jan 2023": 430000,
+          "Feb 2023": 438000,
+          "Mar 2023": 446000,
+          "Apr 2023": 455000,
+          "May 2023": 459000,
+          "Jun 2023": 462000,
+          "Jul 2023": 475000,
+          "Aug 2023": 480000,
+          "Sep 2023": 488000,
+          "Oct 2023": 500000,
+          "Nov 2023": 510000,
+          "Dec 2023": 520000,
+          "Jan 2024": 525000,
+          "Feb 2024": 528000,
+          "Mar 2024": 530000
+        },
+        "par30_rate": {
+          "Jan 2023": "12.2%",
+          "Feb 2023": "12.5%",
+          "Mar 2023": "13.1%",
+          "Apr 2023": "12.8%",
+          "May 2023": "13.2%",
+          "Jun 2023": "13.5%",
+          "Jul 2023": "14.1%",
+          "Aug 2023": "13.8%",
+          "Sep 2023": "13.2%",
+          "Oct 2023": "12.9%",
+          "Nov 2023": "12.6%",
+          "Dec 2023": "12.5%",
+          "Jan 2024": "15.7%",
+          "Feb 2024": "18.9%",
+          "Mar 2024": "22.3%"
+        }
+      }
+    }
+  }
+} 

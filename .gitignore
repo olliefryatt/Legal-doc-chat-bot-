@@ -4,7 +4,6 @@ __pycache__/
 *$py.class
 *.so
 .Python
-env/
 build/
 develop-eggs/
 dist/
@@ -24,6 +23,7 @@ wheels/
 # Virtual Environment
 venv/
 ENV/
+env/
 
 # IDE
 .idea/
@@ -31,6 +31,19 @@ ENV/
 *.swp
 *.swo
 
-# OS
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Documents and conversion
+documents/
+convert_docs.py
+# documents_data.json is kept in the repository
+
+# Misc
 .DS_Store
-Thumbs.db 
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local 
